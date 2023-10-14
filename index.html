@@ -37,8 +37,7 @@
         };
 
         var update_qrcode = function (text) {
-            var form = document.forms['qr-form'];
-            var text = form.elements['data-input'].value.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
+            var text = text.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
 
             console.log("text:", text);
 
