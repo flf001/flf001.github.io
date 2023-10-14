@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>QR Code Generator</title>
-    <script src="https://cdn.rawgit.com/neocotic/qrious/v4.0.2/qrious.min.js"></script>
+    <script src="https://raw.githubusercontent.com/flf001/flf001.github.io/main/qrcode.min.js"></script>
 </head>
 <body onload="body_loadHander()">
     <div id="app">
@@ -28,16 +28,18 @@
         };
 
         var create_qrcode = function (text) {
-            var qr = new QRious({
-                element: document.getElementById('qr'),
-                value: text,
-                size: 128,
-            });
+            var qr = qrcode(4, 'M');
+            qr.addData(text);
+            qr.make();
+            return qr.createImgTag();
         };
 
         var update_qrcode = function (text) {
             var text = text.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
-            create_qrcode(text);
+
+            console.log("text:", text);
+
+            document.getElementById('qr').innerHTML = create_qrcode(text);
         };
     </script>
 </body>
