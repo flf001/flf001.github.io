@@ -13,7 +13,7 @@
             <input type="text" id="data-input" placeholder="Enter data" required>
             <button type="button" onclick="generateQRCode()">Generate QR Code</button>
         </form>
-        <div id="qrcode"></div>
+        <div id="qr"></div>
     </div>
 
     <script>
@@ -43,8 +43,20 @@
         };
 
         var update_qrcode = function (text) {
-            var qrcodeDiv = document.getElementById('qrcode');
-            qrcodeDiv.innerHTML = create_qrcode(text, 4, 'M');
+            var form = document.forms['qr-form'];
+            var text = form.elements['data-input'].value.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
+            var t = form.elements['t'].value;
+            var e = form.elements['e'].value;
+            var m = form.elements['m'].value;
+            var mb = form.elements['mb'].value;
+
+            console.log("text:", text);
+            console.log("t:", t);
+            console.log("e:", e);
+            console.log("m:", m);
+            console.log("mb:", mb);
+
+            document.getElementById('qr').innerHTML = create_qrcode(text, t, e, m, mb);
         };
     </script>
 </body>
