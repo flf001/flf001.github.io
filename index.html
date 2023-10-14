@@ -29,34 +29,20 @@
             update_qrcode(dataInput);
         };
 
-        var draw_qrcode = function (text, typeNumber, errorCorrectionLevel) {
-            document.write(create_qrcode(text, typeNumber, errorCorrectionLevel));
-        };
-
-        var create_qrcode = function (text, typeNumber, errorCorrectionLevel, mode, mb) {
-            qrcode.stringToBytes = qrcode.stringToBytesFuncs[mb];
-            var qr = qrcode(typeNumber || 4, errorCorrectionLevel || 'M');
-            qr.addData(text, mode);
+        var create_qrcode = function (text) {
+            var qr = qrcode(4, 'M');
+            qr.addData(text);
             qr.make();
-            // Use qr.createImgTag() to return an image tag
             return qr.createImgTag();
         };
 
         var update_qrcode = function (text) {
             var form = document.forms['qr-form'];
             var text = form.elements['data-input'].value.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
-            var t = form.elements['t'].value;
-            var e = form.elements['e'].value;
-            var m = form.elements['m'].value;
-            var mb = form.elements['mb'].value;
 
             console.log("text:", text);
-            console.log("t:", t);
-            console.log("e:", e);
-            console.log("m:", m);
-            console.log("mb:", mb);
 
-            document.getElementById('qr').innerHTML = create_qrcode(text, t, e, m, mb);
+            document.getElementById('qr').innerHTML = create_qrcode(text);
         };
     </script>
 </body>
