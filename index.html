@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Generator</title>
+    <script src="qrcode.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>QR Code Generator</h1>
+        <form id="qr-form">
+            <label for="data-input">Data:</label>
+            <input type="text" id="data-input" placeholder="Enter data" required>
+            <button type="button" onclick="generateQRCode()">Generate QR Code</button>
+        </form>
+        <div id="qrcode"></div>
+    </div>
+
+    <script>
+        function generateQRCode() {
+            const dataInput = document.getElementById('data-input').value;
+
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = '';
+
+            const qrcode = new QRCode(-1, QRErrorCorrectLevel.H);
+            qrcode.addData(dataInput);
+            qrcode.make();
+
+            const canvas = qrcode.createImgTag(5, 0);
+            qrcodeDiv.innerHTML = canvas;
+        }
+    </script>
+</body>
+</html>
