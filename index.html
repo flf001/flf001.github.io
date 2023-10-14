@@ -5,7 +5,7 @@
     <title>QR Code Generator</title>
     <script src="qrcode.min.js"></script>
 </head>
-<body>
+<body onload="body_loadHander()">
     <div id="app">
         <h1>QR Code Generator</h1>
         <form id="qr-form">
@@ -17,19 +17,35 @@
     </div>
 
     <script>
-        function generateQRCode() {
-            const dataInput = document.getElementById('data-input').value;
+        // Your QR code JavaScript functions here
 
-            const qrcodeDiv = document.getElementById('qrcode');
-            qrcodeDiv.innerHTML = '';
+        var body_loadHander = function () {
+            // Your initialization code here
+        };
 
-            const qrcode = new QRCode(-1, QRErrorCorrectLevel.H);
-            qrcode.addData(dataInput);
-            qrcode.make();
+        var generateQRCode = function () {
+            // Function to generate QR code
+            var dataInput = document.getElementById('data-input').value;
+            update_qrcode(dataInput);
+        };
 
-            const canvas = qrcode.createImgTag(5, 0);
-            qrcodeDiv.innerHTML = canvas;
-        }
+        var draw_qrcode = function (text, typeNumber, errorCorrectionLevel) {
+            document.write(create_qrcode(text, typeNumber, errorCorrectionLevel));
+        };
+
+        var create_qrcode = function (text, typeNumber, errorCorrectionLevel, mode, mb) {
+            qrcode.stringToBytes = qrcode.stringToBytesFuncs[mb];
+            var qr = qrcode(typeNumber || 4, errorCorrectionLevel || 'M');
+            qr.addData(text, mode);
+            qr.make();
+            // Use qr.createImgTag() to return an image tag
+            return qr.createImgTag();
+        };
+
+        var update_qrcode = function (text) {
+            var qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = create_qrcode(text, 4, 'M');
+        };
     </script>
 </body>
 </html>
