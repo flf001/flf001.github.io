@@ -28,10 +28,11 @@
         };
 
         var create_qrcode = function (text) {
-            var qr = qrcode(4, 'M');
-            qr.addData(text);
-            qr.make();
-            return qr.createImgTag();
+            var qr = new QRCode(document.getElementById('qr'), {
+                text: text,
+                width: 128,
+                height: 128
+            });
         };
 
         var update_qrcode = function (text) {
@@ -39,7 +40,8 @@
 
             console.log("text:", text);
 
-            document.getElementById('qr').innerHTML = create_qrcode(text);
+            document.getElementById('qr').innerHTML = '';
+            create_qrcode(text);
         };
     </script>
 </body>
