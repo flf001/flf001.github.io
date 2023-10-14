@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>QR Code Generator</title>
-    <script src="https://raw.githubusercontent.com/flf001/flf001.github.io/main/qrcode.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body onload="body_loadHander()">
     <div id="app">
@@ -17,8 +17,6 @@
     </div>
 
     <script>
-        // Your QR code JavaScript functions here
-
         var body_loadHander = function () {
             // Your initialization code here
         };
@@ -30,18 +28,16 @@
         };
 
         var create_qrcode = function (text) {
-            var qr = qrcode(4, 'M');
-            qr.addData(text);
-            qr.make();
-            return qr.createImgTag();
+            var qr = new QRCode(document.getElementById('qr'), {
+                text: text,
+                width: 128,
+                height: 128
+            });
         };
 
         var update_qrcode = function (text) {
             var text = text.replace(/^[\s\u3000]+|[\s\u3000]+$/g, '');
-
-            console.log("text:", text);
-
-            document.getElementById('qr').innerHTML = create_qrcode(text);
+            create_qrcode(text);
         };
     </script>
 </body>
